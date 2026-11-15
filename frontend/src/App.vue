@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import ProductChannel from './components/ProductChannel.vue'
+import demoAvatar from './assets/demo-avatar.svg'
 import {
   ArrowRight, Bell, BookOpen, BusFront, CalendarDays, Check, ChevronDown, CircleHelp,
   Clock3, Compass, Heart, Hotel, Map, MapPin, Menu, Plane, RotateCcw, Search,
@@ -55,7 +56,7 @@ const discoveryNav = [
 ]
 const productConfigs = {
   酒店: {
-    title: '预订酒店', subtitle: '搜索目的地住宿，查看课程模拟房型',
+    title: '预订酒店', subtitle: '搜索目的地住宿',
     fields: [
       { key: 'destination', label: '目的地 / 酒店名称', value: '杭州' },
       { key: 'dates', label: '入住 / 退房', value: '6月12日 — 6月15日' },
@@ -63,13 +64,34 @@ const productConfigs = {
       { key: 'keyword', label: '关键词（选填）', value: '' },
     ],
     samples: [
-      ['杭州湖滨亚朵酒店', '湖滨商圈 · 含早餐 · 可免费取消（模拟）', '¥ 468', '距西湖步行约 8 分钟'],
-      ['杭州西湖逸衡酒店', '西湖景区 · 双床房 · 早餐可选（模拟）', '¥ 526', '距灵隐寺车程约 25 分钟'],
-      ['杭州武林广场全季酒店', '武林商圈 · 大床房 · 到店付款（模拟）', '¥ 389', '地铁站步行约 5 分钟'],
+      ['杭州湖滨亚朵酒店', '湖滨商圈 · 含早餐 · 可免费取消（模拟）', '¥ 468', '距西湖步行约 8 分钟', {
+        area: '湖滨商圈', stars: 4, score: '4.8', grade: '超棒', reviews: '3120条评价', oldPrice: '¥ 528',
+        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=720&q=80',
+      }],
+      ['杭州西湖逸衡酒店', '西湖景区 · 双床房 · 含早餐 · 免费取消（模拟）', '¥ 526', '距灵隐寺车程约 25 分钟', {
+        area: '西湖景区', stars: 4, score: '4.9', reviews: '2640条评价', grade: '超棒', oldPrice: '¥ 598',
+        image: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=720&q=80',
+      }],
+      ['杭州武林广场全季酒店', '武林商圈 · 大床房 · 到店付款（模拟）', '¥ 389', '地铁站步行约 5 分钟', {
+        area: '武林广场', stars: 3, score: '4.7', grade: '很好', reviews: '4180条评价', oldPrice: '¥ 439',
+        image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=720&q=80',
+      }],
+      ['杭州灵隐禅意隐居酒店', '灵隐飞来峰 · 含早餐 · 庭院景观（模拟）', '¥ 618', '步行可达灵隐景区入口', {
+        area: '灵隐周边', stars: 5, score: '4.9', grade: '超棒', reviews: '1850条评价', oldPrice: '¥ 699',
+        image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=720&q=80',
+      }],
+      ['杭州西湖柳莺里君亭酒店', '南山路湖畔 · 免费取消 · 观景露台（模拟）', '¥ 558', '紧邻柳浪闻莺与雷峰塔', {
+        area: '西湖景区', stars: 4, score: '4.8', grade: '超棒', reviews: '2290条评价', oldPrice: '¥ 620',
+        image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=720&q=80',
+      }],
+      ['杭州湖滨银泰桔子水晶酒店', '湖滨商圈 · 智能客房 · 免费取消（模拟）', '¥ 435', '龙翔桥地铁口步行约 4 分钟', {
+        area: '湖滨商圈', stars: 4, score: '4.8', grade: '超棒', reviews: '3560条评价', oldPrice: '¥ 489',
+        image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=720&q=80',
+      }],
     ],
   },
   机票: {
-    title: '机票查询', subtitle: '比较往返航班与出行时间，数据仅用于演示',
+    title: '机票查询', subtitle: '比较往返航班与出行时间',
     fields: [
       { key: 'origin', label: '出发城市', value: '沈阳' },
       { key: 'destination', label: '到达城市', value: '杭州' },
@@ -77,13 +99,25 @@ const productConfigs = {
       { key: 'return', label: '返程日期', value: '6月15日' },
     ],
     samples: [
-      ['沈阳 → 杭州 · 直飞', '09:20 — 11:45 · 约 2小时25分', '¥ 860', '模拟航班 · 含税参考价'],
-      ['沈阳 → 杭州 · 经停', '07:40 — 12:55 · 经停青岛', '¥ 690', '模拟航班 · 含税参考价'],
-      ['杭州 → 沈阳 · 返程', '14:10 — 16:40 · 约 2小时30分', '¥ 920', '模拟航班 · 含税参考价'],
+      ['沈阳 → 杭州 · 直飞', '09:20 桃仙T3 — 11:45 萧山T4 · 约 2小时25分', '¥ 860', '模拟航班 MF8062 · 经济舱 4.6折', {
+        direction: 'out', code: 'MF8062', departTime: '09:20', arriveTime: '11:45', departPort: '沈阳桃仙 T3', arrivePort: '杭州萧山 T4', duration: '2h25m', stop: '直飞', discount: '4.6折', dateLabel: '2027-06-12 周六',
+      }],
+      ['沈阳 → 杭州 · 经停', '07:40 桃仙T3 — 12:55 萧山T3 · 经停青岛', '¥ 690', '模拟航班 CZ6521 · 经济舱 3.7折', {
+        direction: 'out', code: 'CZ6521', departTime: '07:40', arriveTime: '12:55', departPort: '沈阳桃仙 T3', arrivePort: '杭州萧山 T3', duration: '5h15m', stop: '经停青岛', discount: '3.7折', dateLabel: '2027-06-12 周六',
+      }],
+      ['杭州 → 沈阳 · 14日早班直飞', '08:35 萧山T4 — 11:05 桃仙T3 · 约 2小时30分', '¥ 780', '提前返程候选 · 对应「费用优先」时段', {
+        direction: 'in', code: 'CA1753', departTime: '08:35', arriveTime: '11:05', departPort: '杭州萧山 T4', arrivePort: '沈阳桃仙 T3', duration: '2h30m', stop: '直飞', discount: '4.2折', dateLabel: '2027-06-14 周一',
+      }],
+      ['杭州 → 沈阳 · 14日午班直飞', '14:10 萧山T4 — 16:40 桃仙T3 · 约 2小时30分', '¥ 920', '提前返程候选 · 对应「改动最少」时段', {
+        direction: 'in', code: 'HU7348', departTime: '14:10', arriveTime: '16:40', departPort: '杭州萧山 T4', arrivePort: '沈阳桃仙 T3', duration: '2h30m', stop: '直飞', discount: '4.9折', dateLabel: '2027-06-14 周一',
+      }],
+      ['杭州 → 沈阳 · 14日晚班直飞', '20:15 萧山T3 — 22:45 桃仙T3 · 约 2小时30分', '¥ 1050', '保留灵隐寺白天游览 · 对应「体验优先」时段', {
+        direction: 'in', code: 'ZH9216', departTime: '20:15', arriveTime: '22:45', departPort: '杭州萧山 T3', arrivePort: '沈阳桃仙 T3', duration: '2h30m', stop: '直飞', discount: '5.6折', dateLabel: '2027-06-14 周一',
+      }],
     ],
   },
   火车票: {
-    title: '火车票查询', subtitle: '查看出发到达与席别信息，班次和价格为模拟',
+    title: '火车票查询', subtitle: '查看出发到达与席别信息',
     fields: [
       { key: 'origin', label: '出发站', value: '沈阳北' },
       { key: 'destination', label: '到达站', value: '杭州东' },
@@ -125,7 +159,7 @@ const productConfigs = {
     ],
   },
   '汽车·船票': {
-    title: '汽车与船票', subtitle: '查看城际巴士及水上交通模拟班次',
+    title: '汽车与船票', subtitle: '查看城际巴士及水上交通班次',
     fields: [
       { key: 'origin', label: '出发地', value: '杭州' },
       { key: 'destination', label: '目的地', value: '乌镇' },
@@ -139,7 +173,7 @@ const productConfigs = {
     ],
   },
   用车: {
-    title: '用车服务', subtitle: '模拟填写接送地点与出发时间',
+    title: '用车服务', subtitle: '填写接送地点与出发时间',
     fields: [
       { key: 'pickup', label: '上车地点', value: '杭州湖滨亚朵酒店' },
       { key: 'dropoff', label: '目的地', value: '杭州东站' },
@@ -315,23 +349,24 @@ onMounted(async () => {
         <button class="rail-link" :class="{ active: activeNav === '收藏夹' }" @click="navigateService('收藏夹')"><Heart :size="19" /><span>收藏夹</span></button>
         <button class="rail-link" :class="{ active: activeNav === '我的订单' }" @click="navigateService('我的订单')"><CalendarDays :size="19" /><span>我的订单</span></button>
       </div>
-      <div class="rail-demo"><Sparkles :size="15" /><span>课程模拟演示<br />不连接真实订单</span></div>
     </aside>
-    <div class="demo-strip"><span><Sparkles :size="14" /> 课程演示原型 · 产品、价格与办理状态均为模拟</span><button @click="resetDemo"><RotateCcw :size="14" /> 重置演示</button></div>
+    <div class="demo-strip"><span><Sparkles :size="14" /> 课程演示 · 商品、价格与订单均为模拟</span><button @click="resetDemo"><RotateCcw :size="14" /> 重置演示</button></div>
     <header class="topbar">
       <button class="brand" @click="goHome"><span class="brand-mark"><Compass :size="24" /></span><span>携程旅行</span></button>
       <label class="global-search"><Search :size="18" /><input v-model="searchQuery" aria-label="搜索旅行相关" placeholder="搜索酒店、机票、景点和攻略" @keydown.enter="searchDemo" /><button aria-label="搜索" @click.prevent="searchDemo"><Search :size="19" /></button></label>
-      <div class="account"><button class="sign-in" @click="showNotice('登录功能未接入。本原型使用单个预置演示用户，无需登录。')">登录</button><button @click="showNotice('注册功能未接入。本原型不收集或保存个人账户信息。')">注册</button><i></i><button class="order-link" @click="navigateService('我的订单')">我的订单 <ChevronDown :size="13" /></button><i></i><button @click="showNotice('客服入口未接入。模拟办理结果和待回复事项会直接显示在行程页面。')">联系客服</button><i></i><button class="icon-button" aria-label="消息" @click="showNotice('暂无新消息。酒店待回复状态会显示在本次模拟办理结果中。')"><Bell :size="18" /></button></div>
+      <div class="account">
+        <div class="account-profile" aria-label="当前用户：用户1234"><img class="account-avatar" :src="demoAvatar" alt="虚构用户头像" /><span>用户1234</span></div>
+        <i></i><button class="order-link" @click="navigateService('我的订单')">我的订单 <ChevronDown :size="13" /></button><i></i><button @click="showNotice('客服入口未接入。模拟办理结果和待回复事项会直接显示在行程页面。')">联系客服</button><i></i><button class="icon-button" aria-label="消息" @click="showNotice('暂无新消息。酒店待回复状态会显示在本次模拟办理结果中。')"><Bell :size="18" /></button>
+      </div>
     </header>
 
     <div v-if="notice" class="nav-notice global-notice" role="status"><span>{{ notice }}</span><button aria-label="关闭提示" @click="notice = ''"><X :size="16" /></button></div>
     <main :class="{ 'channel-main': productPage }">
       <template v-if="productPage">
-        <ProductChannel v-if="productConfigs[productPage]" :key="productPage" :channel="productPage" :config="productConfigs[productPage]" :favorites="favorites" :plans="plannedItems" :search-seed="searchSeed" @add-plan="savePlan" @favorite="toggleFavorite" @home="goHome" @view-trip="goHome" />
+        <ProductChannel v-if="productConfigs[productPage]" :key="productPage" :channel="productPage" :config="productConfigs[productPage]" :favorites="favorites" :plans="plannedItems" :search-seed="searchSeed" @add-plan="savePlan" @favorite="toggleFavorite" @home="goHome" @navigate="navigateService" @open-assistant="startChange" @view-trip="goHome" />
         <section v-else class="personal-page">
-          <div class="page-breadcrumb"><button @click="goHome">首页</button><span> / {{ productPage }}</span></div>
           <h1>{{ productPage }}</h1>
-          <p>杭州之旅 · 2027年6月12日—15日 · 课程模拟数据</p>
+          <p>杭州之旅 · 2027年6月12日—15日</p>
           <template v-if="productPage === '我的订单'">
             <div class="channel-tabs" aria-label="订单类型"><button v-for="tab in ['全部订单', '机票', '酒店', '门票·活动']" :key="tab" :class="{ selected: orderFilter === tab }" @click="orderFilter = tab">{{ tab }}</button></div>
             <article v-for="item in filteredOrders" :key="item.code" class="personal-card"><div><span class="confirmed-tag">模拟已订</span><small> {{ item.code }}</small><h3>{{ item.title }}</h3><p>{{ item.detail }}</p><p v-if="processed">{{ item.type === '酒店' ? '缩住申请待回复，原订单仍有效' : '模拟改签 / 改期至6月14日' }}</p></div><button class="outline-button" @click="startChange">查看行程与退改 <ArrowRight :size="14" /></button></article>
@@ -436,7 +471,7 @@ onMounted(async () => {
           </div>
           <div class="next-day"><span>14</span><div><b>6月14日 · 周一</b><small>西湖漫步 · 返程待安排</small></div><span class="day-alert">待调整</span></div>
           <div class="next-day" id="ticket-booking"><span>15</span><div><b>6月15日 · 周二</b><small>原返程交通 · 西湖游船联票</small></div><span class="booked-small">2 项已订</span></div>
-          <footer><span>演示案例日期：2027年6月 · 所有产品、价格、订单和回执均为虚构示例</span><button @click="showNotice('本原型不连接携程真实订单、商品、价格或供应商；模拟结果仅用于课程演示。')"><CircleHelp :size="14" /> 原型说明</button></footer>
+          <footer><span>行程日期：2027年6月</span><button @click="showNotice('本原型不连接携程真实订单、商品、价格或供应商；模拟结果仅用于课程演示。')"><CircleHelp :size="14" /> 原型说明</button></footer>
         </section>
       </div>
       </template>

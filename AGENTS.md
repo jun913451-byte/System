@@ -1,55 +1,40 @@
-# Project Instructions
+# 系统开发协作规则 (`exp/system`)
 
-## Project
+## 项目定位与必读文件
 
-This is a browser-based MIS course prototype for coordinating one traveller's Hangzhou trip and simulated travel bookings. It uses Ctrip's web experience as a visual reference; it is not an official Ctrip product and does not connect to Ctrip or supplier systems.
+本目录为“携程智能行程助手（杭州行程协同）”浏览器课程演示原型。参考携程网页版的导航与视觉语言，但不是携程官方产品，不连接真实供应商或交易系统。
 
-The main demo is a cross-order trip change: review a trip, inspect affected transport/hotel/ticket items, compare options, explicitly confirm, and view simulated processing results. Product data, prices, availability, booking rules, and outcomes are mock data.
+修改代码前按需阅读：
 
-## Read First
+- `README.md`：启动与构建命令、接口说明
+- `CONTEXT.md`：领域术语与业务边界
+- `docs/adr/`：架构与确定性规则决策
 
-- `README.md` for setup and available commands.
-- `CONTEXT.md` for domain terms and business boundaries.
-- `docs/adr/` before changing architecture, model responsibilities, data handling, or AI integration.
-- `../项目设计与开发说明.md` for the course project scope and the relationship between the prototype and the proposed system design.
+## 业务与数据红线
 
-For course-report tasks, consult `../实验要求.pdf` and `../汇总.docx` as needed. Treat current source code and this repository's docs as authoritative for implemented behavior; older handoff notes and archived drafts may be stale.
+- **区分计划与订单**：加入行程的“未预订计划”绝不能展示为“已预订订单”。
+- **订单事实与明确确认**：已订订单视为事实，不得静默改签或取消；任何模拟办理前必须经过用户明确确认，并清晰标注“模拟”。
+- **模拟数据边界**：商品、价格、库存、退改规则与回执均为本地模拟数据，不产生真实预订、扣款或退款。
+- **AI 与隐私边界**：若接入大模型，API 密钥必须留在后端；客观日期与冲突检查由确定性规则负责，模型不得编造商品、价格、库存或判定订单对错；不持久化完整对话，遇到敏感身份/联系方式图片立即停止处理。
 
-## Product and Data Boundaries
+## 界面一致性
 
-- Keep planned itinerary items distinct from confirmed bookings. Adding an item to a plan must not imply that it is booked.
-- Treat existing bookings as facts. Surface possible conflicts for the user to review; do not silently alter or cancel bookings.
-- Require explicit user confirmation before any simulated processing. Clearly label simulated prices, status, and outcomes.
-- Do not add real booking, payment, refund, or supplier integrations unless explicitly requested.
-- DeepSeek is not currently integrated. If adding it, keep credentials on the backend and follow the ADRs. Deterministic application rules own objective date/overlap checks; the model may help interpret requests and explain results, but must not invent products, prices, availability, or booking truth.
-- Do not persist full chat transcripts. Keep demo user data separate from platform product data and collect only what the current feature needs.
-- User-provided images may contain sensitive identity/contact data. Follow the privacy behavior defined in `CONTEXT.md`; do not log raw sensitive content.
+- **搜索框**：其他频道需要搜索框时，优先沿用机票搜索区的视觉层级与主次关系，并按场景调整字段、布局和响应式行为。
 
-## Codebase Map
+## Skill 使用约定
 
-- `frontend/src/App.vue`: application shell, navigation, trip view, demo change flow, local demo data and state.
-- `frontend/src/components/ProductChannel.vue`: simulated product-channel search, filters, details, favorites, and adding unbooked plan items.
-- `frontend/src/style.css`, `frontend/src/channel.css`: application and channel styling.
-- `backend/server.js`: Node HTTP server, SQLite demo state, API routes, and static-file serving.
-- `data/`: local SQLite demo database; do not commit generated or user-specific data.
+开发前端通常先用 **`frontend-design`**：它负责页面、组件和整体 UI 的设计与实现。
 
-Product catalog samples and channel configuration currently live in `frontend/src/App.vue`; favorites and planned items use browser `localStorage`. The backend currently persists only the demo confirmation/processing state. Do not describe these as a full order or itinerary database.
+按任务再搭配：
 
-## Working Rules
+- **`ui-ux-pro-max`**：需要加强布局、配色、字体和交互体验时。
+- **`frontend-exp`**：涉及滚动触发、入场或其他前端动画时。
+- **`webapp-testing`**：需要在浏览器里验证页面交互、截图或排查控制台问题时。
+- **`bs-quest`**：想先参考当前流行的网页设计案例，再决定视觉方向时。
+- **`matt-diagnose`**：排查按钮无响应、状态不同步等疑难缺陷时。
 
-- Inspect the relevant component, API, and existing styles before editing; prefer local patterns and keep changes scoped.
-- Preserve unrelated user changes. Check `git status` before edits and do not reset or overwrite existing work.
-- Keep the app usable as a normal browser website and maintain the current Ctrip-inspired visual language.
-- After frontend changes, check desktop and narrow mobile layouts (including 390 px), navigation, browser back/forward where relevant, and the affected interactions.
-- Do not claim features, tests, external research, or production readiness that were not actually verified.
+## 开发与验证规范
 
-## Run and Verify
-
-Run commands from this directory:
-
-```powershell
-npm run dev
-npm run build
-```
-
-The dev server serves the Vite frontend at `http://localhost:5173/` and the backend API on port `3000`. There is no configured automated test script; use a production build plus focused browser interaction checks for changes.
+- **最小侵入**：编辑前先查看相关组件、样式与 `git status`，保留用户已有改动，不做无关重构。
+- **构建与交互验证**：代码改动后运行 `npm run build`；界面改动需在浏览器验证桌面端与窄屏（如 390px）布局无横向溢出、相关交互及前进/后退导航正常。
+- **版本控制**：不提交 `node_modules/`、`dist/`、`data/` 本地 SQLite 数据或个人敏感信息。

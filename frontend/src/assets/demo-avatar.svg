@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
+  <defs><clipPath id="circle"><circle cx="40" cy="40" r="40"/></clipPath></defs>
+  <g clip-path="url(#circle)">
+    <path fill="#E3F3FF" d="M0 0h80v80H0z"/>
+    <circle cx="65" cy="17" r="13" fill="#C4E5FF"/>
+    <path d="M10 82c1-19 12-30 30-30s29 11 30 30" fill="#318CE0"/>
+    <path d="m29 56 11 14 11-14" fill="#FFF"/>
+    <path d="M33 46h14v12c-4 6-10 6-14 0" fill="#F2B88F"/>
+    <ellipse cx="40" cy="33" rx="18" ry="21" fill="#FFD6B3"/>
+    <path d="M22 36c-5-19 6-28 19-28 15 0 23 11 17 29l-5-13c-10 3-17 0-22-4-1 7-4 11-9 16" fill="#284760"/>
+    <circle cx="33" cy="35" r="1.5" fill="#284760"/>
+    <circle cx="47" cy="35" r="1.5" fill="#284760"/>
+    <path d="M35 44c3 3 7 3 10 0" stroke="#BE765D" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="28" cy="41" r="3" fill="#F6B6A2" opacity=".6"/>
+    <circle cx="52" cy="41" r="3" fill="#F6B6A2" opacity=".6"/>
+  </g>
+</svg>
