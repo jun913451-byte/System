@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "concurrently -k \"node --experimental-sqlite backend/server.js\" \"vite --config frontend/vite.config.js --host 0.0.0.0\"",
     "build": "vite build --config frontend/vite.config.js",
-    "preview": "vite preview --config frontend/vite.config.js"
+    "preview": "vite preview --config frontend/vite.config.js",
+    "generate:products": "node backend/scripts/generate-demo-products.js",
+    "import:map": "python backend/scripts/import-osm-attractions.py",
+    "test": "node --test backend/*.test.js"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

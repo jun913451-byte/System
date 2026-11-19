@@ -6,5 +6,5 @@ export default defineConfig({
   root: fileURLToPath(new URL('.', import.meta.url)),
   build: { outDir: '../dist', emptyOutDir: true },
   plugins: [vue()],
-  server: { proxy: { '/api': 'http://localhost:3000' } },
+  server: { proxy: { '/api': process.env.API_URL || 'http://localhost:3101' } },
 })

@@ -1,0 +1,159 @@
+:root {
+  --radius-card: 14px;
+  --radius-card-inner: 11px;
+  --radius-control: 999px;
+}
+
+.app-shell :is(
+  .destination-hero,
+  .status-banner,
+  .search-fields,
+  .quick-links > button,
+  .booking-card,
+  .plan-note,
+  .flow-panel,
+  .plan-card,
+  .channel-search-panel,
+  .channel-results,
+  .channel-shortcuts > button,
+  .product-result,
+  .hotel-result,
+  .flight-result,
+  .personal-card,
+  .hotel-promo,
+  .ticket-promo,
+  .flight-promise,
+  .channel-landscape,
+  .tour-search-bar,
+  .tour-region-list,
+  .tour-mega-panel,
+  .tour-main-banner,
+  .tour-mode-card,
+  .tour-destination-card,
+  .guide-region-list,
+  .guide-mega-panel,
+  .guide-main-story,
+  .guide-story-card,
+  .guide-route-list,
+  .guide-route-row,
+  .project-grid,
+  .create-form,
+  .resource-card,
+  .timeline-content,
+  .travel-map-route-panel,
+  .travel-map-place,
+  .travel-map-empty,
+  .travel-map-loading,
+  .travel-map-layer-menu,
+  .home-landscapes figure
+) {
+  border-radius: var(--radius-card);
+}
+
+.app-shell :is(
+  .day-tabs button,
+  .day-overview,
+  .memory-question,
+  .travel-map-panel-note,
+  .travel-map-search,
+  .travel-map-filters,
+  .travel-map-day-tabs button,
+  .resource-card > img
+) {
+  border-radius: var(--radius-card-inner);
+}
+
+.app-shell :is(
+  .rail-link,
+  .primary-button,
+  .outline-button,
+  .quiet-button,
+  .interactive-hover-button,
+  .primary-action,
+  .secondary-action,
+  .new-project-button,
+  .channel-submit,
+  .tour-search-submit,
+  .travel-map-route-toggle,
+  .travel-map-add-button,
+  .travel-map-panel-action
+) {
+  border-radius: var(--radius-control);
+}
+
+.app-shell .rail-link.active {
+  box-shadow: none;
+}
+
+.app-shell .rail-link:not(.active)::before {
+  border-radius: inherit;
+}
+
+.app-shell :is(
+  .filter-buttons button,
+  .channel-tabs button,
+  .travel-map-filters button,
+  .travel-map-day-tabs button,
+  .preference-options button,
+  .preference-done,
+  .resource-action button,
+  .travel-map-layer-menu > button,
+  .travel-map-empty button
+) {
+  border-radius: var(--radius-control);
+}
+
+.app-shell :is(
+  .global-search,
+  .channel-field,
+  .form-field input,
+  .form-field select,
+  .form-field textarea,
+  .composer textarea,
+  .preference-picker > summary
+) {
+  border-radius: var(--radius-card-inner);
+}
+
+/* Product details are teleported outside .app-shell. */
+.product-overlay :is(
+  .hotel-detail-gallery,
+  .detail-booking-summary,
+  .flight-itinerary-card,
+  .flight-offer,
+  .train-itinerary-card,
+  .train-detail-facts > div,
+  .purchase-product-summary,
+  .checkout-panel,
+  .tour-package-notice
+) {
+  border-radius: var(--radius-card);
+}
+
+.product-overlay :is(
+  .hotel-detail-thumbs button,
+  .detail-offer,
+  .purchase-product-icon,
+  .checkout-field input,
+  .checkout-field select,
+  .checkout-traveller,
+  .checkout-add-traveller-form input
+) {
+  border-radius: var(--radius-card-inner);
+}
+
+.product-overlay :is(
+  .dialog-actions .primary-button,
+  .dialog-actions .outline-button,
+  .detail-save,
+  .checkout-add-traveller,
+  .checkout-add-traveller-save
+) {
+  border-radius: var(--radius-control);
+}
+
+@media (max-width: 760px) {
+  .app-shell .travel-map-route-panel {
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+  }
+}

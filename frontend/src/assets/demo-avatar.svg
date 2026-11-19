@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
   <defs><clipPath id="circle"><circle cx="40" cy="40" r="40"/></clipPath></defs>
   <g clip-path="url(#circle)">
-    <path fill="#E3F3FF" d="M0 0h80v80H0z"/>
-    <circle cx="65" cy="17" r="13" fill="#C4E5FF"/>
-    <path d="M10 82c1-19 12-30 30-30s29 11 30 30" fill="#318CE0"/>
+    <path fill="#d6eeff" d="M0 0h80v80H0z"/>
+    <circle cx="65" cy="17" r="13" fill="#b7dfff"/>
+    <path d="M10 82c1-19 12-30 30-30s29 11 30 30" fill="#147adb"/>
     <path d="m29 56 11 14 11-14" fill="#FFF"/>
     <path d="M33 46h14v12c-4 6-10 6-14 0" fill="#F2B88F"/>
     <ellipse cx="40" cy="33" rx="18" ry="21" fill="#FFD6B3"/>
